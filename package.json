@@ -14,9 +14,11 @@
   "author": "Joel Lim",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^6.0.0",
+    "config": "^3.3.6",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.5",
     "mongoose": "^5.11.19"
   },

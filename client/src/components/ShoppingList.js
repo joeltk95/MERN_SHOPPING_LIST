@@ -17,6 +17,11 @@ class ShoppingList extends Component {
     // };
 
     //Life cycle method: The componentDidMount() method runs after the component output has been rendered to the DOM. 
+    static propTypes = {
+        getItems: PropTypes.func.isRequired,
+        item: PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool
+    }
     componentDidMount() {
         this.props.getItems();
     }
@@ -47,12 +52,13 @@ class ShoppingList extends Component {
                         {items.map(({ _id, name }) => (
                             <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
+                                    {this.props.isAuthenticated ? 
                                     <Button 
                                         className="remove-btn" 
                                         color="danger" 
                                         size="sm"
                                         onClick={this.onDeleteClick.bind(this, _id)}
-                                    >&times;</Button>
+                                    >&times;</Button> : null}
                                     {name}
                                 </ListGroupItem>
                             </CSSTransition>
@@ -65,17 +71,15 @@ class ShoppingList extends Component {
     }
 }
 
-ShoppingList.propTypes = {
-    getItems: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired
-}
+
 
 //=> () is an implicit return equivalent to => { return ()}
 //const add = ( a, b ) => ( a + b )
 //Is equivalent to
 //const add = ( a, b ) => { return a+b; }
 const mapStateToProp = (state) => ({  //<-- implicit return
-    item: state.item
+    item: state.item,
+    isAuthenticated: state.auth.isAuthenticated
 });//set to root reducer
 
 export default connect(mapStateToProp, { getItems, deleteItem })(ShoppingList); //mapStateToProp-take item state to map to component property.
